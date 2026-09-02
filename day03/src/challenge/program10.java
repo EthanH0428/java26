@@ -28,7 +28,6 @@ public class program10 {
                 return false;
             }
         }
-        // 반복문이 끝날 때까지 나누어 떨어지는 수가 없었다면, 소수이므로 true를 반환합니다.
         return true;
     }
 }
