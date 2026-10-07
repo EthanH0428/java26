@@ -32,17 +32,15 @@ public class AccountListDao implements AccountDao {
 		return null;
 	}
 
-	// 회원 ID로 계좌 찾기
 	@Override
-	public List<Account> findByMemberId(String id) {
+	public List<Account> findByMemberId(String memberId) {
 		List<Account> memberAccounts = new ArrayList<>();
 		for (Account a : accountDB) {
-			if (a.getId().equals(id)) {
+			if (a.getMemberId().equals(memberId)) { 
 				memberAccounts.add(a);
 			}
 		}
 		
-		// 해당하는 계좌가 없으면 null 반환 
 		if(memberAccounts.size() == 0) return null; 
 		
 		return memberAccounts;
