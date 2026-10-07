@@ -7,6 +7,7 @@ public interface AccountDao {
 	boolean save(Account a);
 	List<Account> findAll();
 	Account findById(String accountNo);
+	List<Account> findByMemberId(String id); 
 	boolean update(Account a);
 	boolean delete(Account a);
 }
