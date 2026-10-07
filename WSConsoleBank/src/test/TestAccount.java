@@ -18,11 +18,21 @@ public class TestAccount {
 		System.out.println(">>> 계좌 추가 및 계좌 목록");
 		adao.save(new Account("111-111", "woosik", "1111", 10000));
 		adao.save(new Account("222-222", "curi", "1111", 50000));
+		adao.save(new Account("333-333", "woosik", "1234", 20000)); // soonbeom의 두 번째 계좌 추가
 		printAccountList(adao.findAll());
 		
 		System.out.println(">>> 계좌번호로 계좌 찾기");
 		Account a = adao.findById("222-222");
 		System.out.println(a);
+		
+		// 추가된 기능 테스트: 회원 ID로 계좌 찾기
+		System.out.println(">>> 회원 ID('woosik')로 계좌 찾기");
+		List<Account> soonbeomAccounts = adao.findByMemberId("woosik");
+		if(soonbeomAccounts != null) {
+			printAccountList(soonbeomAccounts);
+		} else {
+			System.out.println("해당 ID의 계좌가 없습니다.");
+		}
 		
 		System.out.println(">>> 비밀번호 및 잔액 변경");
 		a.setPassword("1234");
