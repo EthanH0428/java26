@@ -1,59 +1,51 @@
 package bank.member;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class MemberListDao implements MemberDao {
+public class MemberMapDao implements MemberDao{
+
 	
-	List<Member> memberDB = new ArrayList<>();
-//	List<Member> memberDB = new LinkedList<>();
-
+	Map<String, Member> memberDB = new HashMap<String, Member>();
+	
 	@Override
 	public boolean save(Member m) {
-		return memberDB.add(m);
+		memberDB.put(m.getId(), m);
+		return false;
 	}
 
 	@Override
 	public List<Member> findAll() {
 		
-		if (memberDB.size() == 0) return null;
-		
-		List<Member> members = new ArrayList<>();
-		for (Member m : memberDB) {
-			members.add(m);
+		if (! memberDB.isEmpty()) {
+			List<Member> mlist = new ArrayList<>();
+			for (Member m : memberDB.values()) {
+				mlist.add(m);
+			}
+			return mlist;
 		}
-		return members;
+		return null;
+		
 	}
 
 	@Override
 	public Member findById(String id) {
-		
-		for (Member m : memberDB) {
-			if (m.getId().equals(id))
-				return m;
-		}
-		
-		return null;
+		return memberDB.get(id);
 	}
 
 	@Override
 	public boolean update(Member m) {
-		Member target = findById(m.getId());
-		if (target == null) return false;
-//		memberDB.remove(target);
-//		memberDB.add(m);
-		
-		int index = memberDB.indexOf(target);
-		memberDB.set(index, m);
+		memberDB.put(m.getId(), m);
 		return true;
+		//return save(m);-이미 위에 세이브랑 형식 같으니까 요렇게 가능
 	}
 
 	@Override
 	public boolean delete(Member m) {
-		Member target = findById(m.getId());
-		if (target == null) return false;
-		return memberDB.remove(target);
+		memberDB.remove(m.getId());
+		return true;
 	}
 
 }
